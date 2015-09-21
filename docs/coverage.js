@@ -137,6 +137,7 @@ var fs = require('fs'),
         'lineChart',
         'numberDisplay',
         'pieChart',
+        'sunburstChart',
         'rowChart',
         'scatterPlot',
         'seriesChart'

@@ -1,40 +1,25 @@
 /**
-## Sunburst Chart
-
-Includes: [Cap Mixin](#cap-mixin), [Color Mixin](#color-mixin), [Base Mixin](#base-mixin)
-
-The sunburst chart implementation is usually used to visualize a small tree distribution.  The sunburst
-chart uses keyAccessor to determine the slices, and valueAccessor to calculate the size of each
-slice relative to the sum of all values. Slices are ordered by `.ordering` which defaults to sorting
-by key.
-
-Examples:
-
-* [Nasdaq 100 Index](http://dc-js.github.com/dc.js/)
-
-#### dc.sunburstChart(parent[, chartGroup])
-Create a sunburst chart instance and attaches it to the given parent element.
-
-Parameters:
-
-* parent : string | node | selection - any valid
- [d3 single selector](https://github.com/mbostock/d3/wiki/Selections#selecting-elements) specifying
- a dom block element such as a div; or a dom element or d3 selection.
-
-* chartGroup : string (optional) - name of the chart group this chart instance should be placed in.
- Interaction with a chart will only trigger events and redraws within the chart's group.
-
-Returns:
-A newly created sunburst chart instance
-
-```js
-// create a sunburst chart under #chart-container1 element using the default global chart group
-var chart1 = dc.sunburstChart('#chart-container1');
-// create a sunburst chart under #chart-container2 element using chart group A
-var chart2 = dc.sunburstChart('#chart-container2', 'chartGroupA');
-```
-
-**/
+ * The sunburst chart implementation is usually used to visualize a small tree distribution.  The sunburst
+ * chart uses keyAccessor to determine the slices, and valueAccessor to calculate the size of each
+ * slice relative to the sum of all values. Slices are ordered by `.ordering` which defaults to sorting
+ * by key.
+ * @name sunburstChart
+ * @memberof dc
+ * @mixes dc.capMixin
+ * @mixes dc.colorMixin
+ * @mixes dc.baseMixin
+ * @example
+ * // create a sunburst chart under #chart-container1 element using the default global chart group
+ * var chart1 = dc.sunburstChart('#chart-container1');
+ * // create a sunburst chart under #chart-container2 element using chart group A
+ * var chart2 = dc.sunburstChart('#chart-container2', 'chartGroupA');
+ * @param {String|node|d3.selection|dc.compositeChart} parent - Any valid
+ * [d3 single selector](https://github.com/mbostock/d3/wiki/Selections#selecting-elements) specifying
+ * a dom block element such as a div; or a dom element or d3 selection.
+ * @param {String} [chartGroup] - The name of the chart group this chart instance should be placed in.
+ * Interaction with a chart will only trigger events and redraws within the chart's group.
+ * @returns {SunburstChart}
+ */
 dc.sunburstChart = function (parent, chartGroup) {
     var DEFAULT_MIN_ANGLE_FOR_LABEL = 0.5;
 
@@ -59,12 +44,15 @@ dc.sunburstChart = function (parent, chartGroup) {
     });
 
     /**
-    #### .slicesCap([cap])
-    Get or set the maximum number of slices the pie chart will generate. The top slices are determined by
-    value from high to low. Other slices exeeding the cap will be rolled up into one single *Others* slice.
-    The resulting data will still be sorted by .ordering (default by key).
-    **/
-
+     * Get or set the maximum number of slices the pie chart will generate. The top slices are determined by
+     * value from high to low. Other slices exeeding the cap will be rolled up into one single *Others* slice.
+     * The resulting data will still be sorted by .ordering (default by key).
+     * @name slicesCap
+     * @memberof dc.sunburstChart
+     * @instance
+     * @param {Number} [cap]
+     * @returns {Chart}
+     */
     _chart.slicesCap = _chart.cap; // this doesn't work yet.
 
     _chart.label(_chart.cappedKeyAccessor);
@@ -252,10 +240,14 @@ dc.sunburstChart = function (parent, chartGroup) {
     }
 
     /**
-    #### .innerRadius([innerRadius])
-    Get or set the inner radius of the sunburstData chart. If the inner radius is greater than 0px then the
-    sunburstData chart will be rendered as a doughnut chart. Default inner radius is 0px.
-    **/
+     * Get or set the inner radius of the sunburstData chart. If the inner radius is greater than 0px then the
+     * sunburstData chart will be rendered as a doughnut chart. Default inner radius is 0px.
+     * @name innerRadius
+     * @memberof dc.sunburstChart
+     * @instance
+     * @param {Number} [innerRadius=0]
+     * @returns {Chart}
+     */
     _chart.innerRadius = function (r) {
         if (!arguments.length) {
             return _innerRadius;
@@ -265,10 +257,13 @@ dc.sunburstChart = function (parent, chartGroup) {
     };
 
     /**
-    #### .radius([radius])
-    Get or set the outer radius. Default radius is 90px.
-
-    **/
+     * Get or set the outer radius. Default radius is 90px.
+     * @name radius
+     * @memberof dc.sunburstChart
+     * @instance
+     * @param {Number} [radius]
+     * @returns {Chart}
+     */
     _chart.radius = function (r) {
         if (!arguments.length) {
             return _radius;
@@ -278,10 +273,13 @@ dc.sunburstChart = function (parent, chartGroup) {
     };
 
     /**
-    #### .cx([cx])
-    Get or set center x coordinate position. Default is center of svg.
-
-    **/
+     * Get or set center x coordinate position. Default is center of svg.
+     * @name cx
+     * @memberof dc.sunburstChart
+     * @instance
+     * @param {Number} [cx]
+     * @returns {Chart}
+     */
     _chart.cx = function (cx) {
         if (!arguments.length) {
             return (_cx ||  _chart.width() / 2);
@@ -291,10 +289,13 @@ dc.sunburstChart = function (parent, chartGroup) {
     };
 
     /**
-    #### .cy([cy])
-    Get or set center y coordinate position. Default is center of svg.
-
-    **/
+     * Get or set center y coordinate position. Default is center of svg.
+     * @name cy
+     * @memberof dc.sunburstChart
+     * @instance
+     * @param {Number} [cy]
+     * @returns {Chart}
+     */
     _chart.cy = function (cy) {
         if (!arguments.length) {
             return (_cy ||  _chart.height() / 2);
@@ -344,10 +345,14 @@ dc.sunburstChart = function (parent, chartGroup) {
     };
 
     /**
-    #### .minAngleForLabel([minAngle])
-    Get or set the minimal slice angle for label rendering. Any slice with a smaller angle will not
-    display a slice label.  Default min angle is 0.5.
-    **/
+     * Get or set the minimal slice angle for label rendering. Any slice with a smaller angle will not
+     * display a slice label.
+     * @name minAngleForLabel
+     * @memberof dc.sunburstChart
+     * @instance
+     * @param {Number} [minAngleForLabel=0.5]
+     * @returns {Chart}
+     */
     _chart.minAngleForLabel = function (_) {
         if (!arguments.length) {
             return _minAngleForLabel;
@@ -437,8 +442,12 @@ dc.sunburstChart = function (parent, chartGroup) {
     }
 
     /**
-     #### .emptyTitle([title])
-     Title to use for the only slice when there is no data
+     * Title to use for the only slice when there is no data.
+     * @name emptyTitle
+     * @memberof dc.sunburstChart
+     * @instance
+     * @param {String} [title]
+     * @returns {Chart}
      */
     _chart.emptyTitle = function (title) {
         if (arguments.length === 0) {
@@ -449,10 +458,14 @@ dc.sunburstChart = function (parent, chartGroup) {
     };
 
     /**
-     #### .externalLabels([radius])
-     Position slice labels offset from the outer edge of the chart
-
-     The given argument sets the radial offset.
+     * Position slice labels offset from the outer edge of the chart
+     *
+     * The given argument sets the radial offset.
+     * @name externalLabels
+     * @memberof dc.sunburstChart
+     * @instance
+     * @param {Number} [radius]
+     * @returns {Chart}
      */
     _chart.externalLabels = function (radius) {
         if (arguments.length === 0) {

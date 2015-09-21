@@ -1,6 +1,6 @@
 !function() {
   var d3 = {
-    version: "3.5.5"
+    version: "3.5.6"
   };
   var d3_arraySlice = [].slice, d3_array = function(list) {
     return d3_arraySlice.call(list);
